@@ -1,0 +1,49 @@
+/////////////// DOCUMENTATION TECHNIQUE - FONCTION errorLog ///////////////
+
+/////////////// DESCRIPTION ///////////////
+
+La fonction errorLog est utilisée pour enregistrer les erreurs dans un fichier de journal. 
+Elle permet de garder une trace des erreurs survenues dans une application PHP en enregistrant des informations importantes telles que la date,
+l'heure, le message d'erreur, le fichier source, la valeur "ROUTER" et le numéro de ligne où l'erreur s'est produite.
+Paramètres
+
+    $log (string) : Le message d'erreur à enregistrer dans le journal.
+    $self (string) : Le chemin du fichier source où l'erreur s'est produite.
+    $get (string) : La valeur "ROUTER" pour identifier le point d'entrée de l'application où l'erreur s'est produite.
+    $line (int) : Le numéro de ligne où l'erreur s'est produite dans le fichier source.
+
+/////////////// UTILISATION ///////////////
+
+///// CODE PHP //////
+
+errorLog($log, $self, $get, $line);
+
+///// //////
+
+
+/////////////// FONCTIONNEMENT ///////////////
+
+    La fonction ouvre le fichier de journal en mode "a+" (ajout) pour permettre l'ajout de nouvelles entrées à la fin du fichier. 
+
+    Si le fichier n'existe pas, il sera créé.
+
+    Elle lit le contenu du fichier pour déterminer le nombre actuel de lignes, afin d'attribuer un numéro unique à la nouvelle entrée.
+
+    La date et l'heure actuelles sont obtenues à l'aide des fonctions date, et elles seront enregistrées dans le journal aux côtés du message d'erreur.
+
+    Le pointeur du fichier est positionné à la fin pour que la nouvelle entrée soit ajoutée à la suite des entrées existantes.
+
+    Le message d'erreur est ensuite formaté avec les informations fournies, telles que le niveau de journal ("ERROR"), le numéro de ligne, la date,
+    l'heure, le message d'erreur, le fichier source et la valeur "ROUTER". Le message est stocké dans une variable $newLine.
+
+    Le message d'erreur formaté est écrit dans le fichier de journal à l'aide de la fonction fputs.
+
+    Le fichier est finalement fermé avec la fonction fclose.
+
+/////////////// REMARQUES ///////////////
+
+    Assurez-vous que le fichier de journal, dans ce cas "errors_logs.txt", est accessible en écriture par le processus PHP s'exécutant sur le serveur.
+    Il est recommandé de ne pas stocker d'informations sensibles dans des journaux accessibles au public, car cela pourrait compromettre la sécurité de
+    l'application.
+    Cette fonction de journalisation est principalement destinée à des fins de débogage et de suivi des erreurs. Pour des applications en production, 
+    il est recommandé d'utiliser des bibliothèques de journalisation plus robustes ou des services de journalisation dédiés.
